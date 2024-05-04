@@ -53,4 +53,4 @@ jobs:
           password: ${{ secrets.DOCKER_HUB_ACCESS }}
 
       - name: Pull Docker Image
-        run: docker pull edsonlmachado/pucpr-devops-as2-img:latest
+        run: docker pull edsonlmachado/pucpr-devops-as2-img:v1
