@@ -27,13 +27,13 @@ jobs:
             edsonlmachado/pucpr-devops-as2-img:v1
 
   test:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v3
-      - name: Install dependencies
-        run: pip install Flask
-      - name: Run SAST Scan
-        uses: AppThreat/sast-scan-action@main
-        with:
-          type: "python"
+  runs-on: ubuntu-latest
+  steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v3
+    - name: Install dependencies
+      run: pip install Flask
+    - name: Run SAST Scan
+      uses: appthreat/sast-scan-action@main  # Assuming 'main' is the default branch
+      with:
+        type: python
