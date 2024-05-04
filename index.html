@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pesquisa de Matérias</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        canvas {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Disciplina: DevOps (11100011130_20241_01)</h1>
+        <h1>Professor: Fellipe Medeiros Veiga</h1>
+        <h1>ATIVIDADE SOMATIVA 2</h1>
+        <form id="surveyForm">
+            <p>Qual é a melhor disciplina do Curso de Superior de Tecnologia em Gestão da Tecnologia da
+                Informação ?</p>
+            <select id="materia">
+                <option value="Matemática Aplicada à Computação">Matemática Aplicada à Computação</option>
+                <option value="Comunicação Aplicada">Comunicação Aplicada</option>
+                <option value="Empreendedorismo e Inovação">Empreendedorismo e Inovação</option> 
+                <option value="Introdução à Filosofia">Introdução à Filosofia</option> 
+                <option value="Planejamento Estratégico">Planejamento Estratégico</option> 
+                <option value="Fundamentos da Programação Orientada a Objetos">Fundamentos da Programação Orientada a Objetos</option> 
+                <option value="Raciocínio Computacional">Raciocínio Computacional</option> 
+                <option value="Gestão de Contratos e Orçamentos de TI">Gestão de Contratos e Orçamentos de TI</option> 
+                <option value="Gestão de Projetos em Computação">Gestão de Projetos em Computação</option> 
+                <option value="Inteligência Analítica em Negócios">Inteligência Analítica em Negócios</option> 
+                <option value="Gestão de Serviços de Tecnologia da Informação">Gestão de Serviços de Tecnologia da Informação</option> 
+                <option value="Fundamentos de Big Data">Fundamentos de Big Data</option> 
+                <option value="Educação, Identidade e Solidariedade">Educação, Identidade e Solidariedade</option> 
+                <option value="Modelo Corporativo para Governança de Tecnologia da Informação">Modelo Corporativo para Governança de Tecnologia da Informação</option>
+                <option value="Métodos Ágeis em TI">Métodos Ágeis em TI</option> 
+                <option value="Liderança e Gestão de Equipes">Liderança e Gestão de Equipes</option> 
+                <option value="Gestão de Processos de Negócios">Gestão de Processos de Negócios</option> 
+                <option value="Segurança da Tecnologia da Informação">Segurança da Tecnologia da Informação</option> 
+                <option value="Arquitetura Corporativa">Arquitetura Corporativa</option> 
+                <option value="DevOps">DevOps</option> 
+                <option value="Métricas e Indicadores de TI">Métricas e Indicadores de TI</option> 
+                <option value="Auditoria de Sistemas">Auditoria de Sistemas</option> 
+                <option value="Direito e Ética na Computação">Direito e Ética na Computação</option> 
+                <option value="Banco de Dados para Tecnologia da Informação">Banco de Dados para Tecnologia da Informação</option> 
+                <option value="Fundamentos de Internet das Coisas">Fundamentos de Internet das Coisas</option> 
+                <option value="Métodos de Pesquisa e Ordenação em Estruturas de Dados">Métodos de Pesquisa e Ordenação em Estruturas de Dados</option>
+                <option value="Ética">Ética</option> 
+                <option value="Teologia e Sociedade">Teologia e Sociedade</option> 
+
+            </select>
+            <p>Nota (de 1 a 10):</p>
+            <input type="number" id="nota" min="1" max="10" required>
+            <button type="submit">Enviar</button>
+        </form>
+        <canvas id="chart"></canvas>
+    </div>
+
+    <script>
+        var data = {
+            labels: [],
+            datasets: [{
+                label: 'Nota Média',
+                data: [],
+                backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                borderColor: 'rgba(54, 162, 235, 1)',
+                borderWidth: 1
+            }]
+        };
+
+        var ctx = document.getElementById('chart').getContext('2d');
+        var chart = new Chart(ctx, {
+            type: 'bar',
+            data: data,
+            options: {
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true,
+                            stepSize: 1
+                        }
+                    }]
+                }
+            }
+        });
+
+        document.getElementById('surveyForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            var materia = document.getElementById('materia').value;
+            var nota = parseInt(document.getElementById('nota').value);
+
+            var index = data.labels.indexOf(materia);
+            if (index === -1) {
+                data.labels.push(materia);
+                data.datasets[0].data.push(nota);
+            } else {
+                data.datasets[0].data[index] = (data.datasets[0].data[index] + nota) / 2;
+            }
+
+            chart.update();
+        });
+    </script>
+</body>
+</html>
