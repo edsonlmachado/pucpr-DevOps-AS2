@@ -4,27 +4,24 @@ on:
   push:
     branches: ["main"]
 
-
 jobs:
-
   build:
     runs-on: ubuntu-latest
-
     steps:
-
       - uses: actions/checkout@v3
-      - name: docker/login-action@v3  
-        with:
-          username: ${{  secrets.DOCKER_HUB_USERNAME  }}
-          password: ${{  secrets.DOCKER_HUB_ACCESS  }}
 
-      - uses: docker/build-pusch-actions@v3
-        with: 
+      - name: Docker Login
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKER_HUB_USERNAME }}
+          password: ${{ secrets.DOCKER_HUB_ACCESS }}
+
+      - name: Docker Build and Push
+        uses: docker/build-push-action@v3
+        with:
           context: .
-          file: .
+          file: Dockerfile  # Assuming Dockerfile is in the root directory, adjust path if not
           push: true
-          tags: 
+          tags: |
             edsonlmachado/pucpr-devops-as2-img:v1
-            edsonlmachado/pucpr-devops-as2-img:lasted
-      
-    
+            edsonlmachado/pucpr-devops-as2-img:latest  # corrected typo
