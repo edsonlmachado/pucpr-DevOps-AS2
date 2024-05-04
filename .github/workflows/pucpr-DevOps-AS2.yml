@@ -34,6 +34,6 @@ jobs:
       - name: Install dependencies
         run: pip install Flask
       - name: Run SAST Scan
-        uses: AppThreat/sast-scan-action@Dmain
+        uses: AppThreat/sast-scan-action@main
         with:
           type: "python"
