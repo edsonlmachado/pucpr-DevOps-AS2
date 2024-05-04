@@ -1,0 +1,63 @@
+name: pucpr-DevOps-AS2
+
+on:
+  push:
+    branches: ["main"]
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+jobs:
+
+  build:
+   # environment:
+   #   name: github-pages
+   #   url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+    - name: Check http status code of production site
+      uses: lakuapik/gh-actions-http-status@v1
+      with:
+        sites: "[https://edsonlmachado.github.io/DevOps-Somativa2/]"
+        expected: "[200]"
+
+  test:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout do Código
+      uses: actions/checkout@v2
+      
+    - name: Teste de Acesso à Página HTML
+      run: |
+        status=$(curl -s -o /dev/null -w "%{http_code}" https://edsonlmachado.github.io/DevOps-Somativa2/)
+        if [ $status -eq 200 ]; then
+          echo "Hello Word! pucpr-DevOps-AS2-index.yml executado com sucesso via pipeline no GitHub Actions by Edson Luiz Machado"
+        else
+          echo "falha ao acessar a página"
+          exit 1
+        fi
+
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          # Upload entire repository
+          path: '.'
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
