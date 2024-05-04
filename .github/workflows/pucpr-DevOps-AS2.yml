@@ -24,7 +24,7 @@ jobs:
     - name: Check http status code of production site
       uses: lakuapik/gh-actions-http-status@v1
       with:
-        sites: "[https://edsonlmachado.github.io/DevOps-Somativa2/]"
+        sites: "[https://edsonlmachado.github.io/pucpr-DevOps-AS2/]"
         expected: "[200]"
 
   test:
@@ -35,7 +35,7 @@ jobs:
       
     - name: Teste de Acesso à Página HTML
       run: |
-        status=$(curl -s -o /dev/null -w "%{http_code}" https://edsonlmachado.github.io/DevOps-Somativa2/)
+        status=$(curl -s -o /dev/null -w "%{http_code}" https://edsonlmachado.github.io/pucpr-DevOps-AS2/)
         if [ $status -eq 200 ]; then
           echo "Hello Word! pucpr-DevOps-AS2-index.yml executado com sucesso via pipeline no GitHub Actions by Edson Luiz Machado"
         else
