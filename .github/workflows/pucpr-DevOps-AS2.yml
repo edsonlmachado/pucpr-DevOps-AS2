@@ -24,4 +24,3 @@ jobs:
           push: true
           tags: |
             edsonlmachado/pucpr-devops-as2-img:v1
-            edsonlmachado/pucpr-devops-as2-img:latest  # corrected typo
