@@ -11,7 +11,7 @@ EXPOSE 80
 RUN apk add --no-cache curl
 
 # Definição da URL do arquivo index.html
-ARG INDEX_HTML_URL=https://edsonlmachado.github.io/DevOps-Somativa2/index.html
+ARG INDEX_HTML_URL=https://github.com/edsonlmachado/pucpr-DevOps-AS2/index.html
 
 # Download do arquivo index.html e colocação no diretório de conteúdo do Nginx
 RUN curl -o /usr/share/nginx/html/index.html $INDEX_HTML_URL
